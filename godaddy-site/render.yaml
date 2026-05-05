@@ -1,0 +1,16 @@
+# Use this file ONLY if godaddy-site is the Git repo root (no parent folder).
+# For the Gharkowebsite monorepo, use ../render.yaml at repo root instead.
+
+services:
+  - type: web
+    name: namuna-foods-site
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    plan: free
+    region: oregon
+    envVars:
+      - key: PUBLIC_SITE_URL
+        value: https://namuna.com.au
+      - key: WEB3FORMS_ACCESS_KEY
+        sync: false

@@ -1,0 +1,40 @@
+Namuna site on Render + namuna.com.au — what YOU do next
+=========================================================
+
+Already set in this repo:
+  - Dockerfile + PHP Apache on Render’s PORT
+  - Root render.yaml (monorepo): builds godaddy-site/
+  - PUBLIC_SITE_URL defaults to https://namuna.com.au in Blueprint (override if you use www only)
+  - Contact form reads WEB3FORMS_ACCESS_KEY from Render env (you must paste the key once)
+
+YOUR STEPS (in order)
+---------------------
+
+1) Sync assets + menu from the .NET project (on your PC, repo root):
+
+     powershell.exe -ExecutionPolicy Bypass -File scripts/Export-GodaddySite.ps1
+
+2) Put this folder on GitHub
+   - Push the whole Gharkowebsite repo (or at least godaddy-site + root render.yaml).
+
+3) Render.com
+   - Sign up / log in → GitHub authorize.
+   - New → Blueprint → pick THIS repo → Apply (uses render.yaml).
+   - When prompted, enter Secret: WEB3FORMS_ACCESS_KEY = your key from web3forms.com
+   - Wait until deploy is Live (opens *.onrender.com).
+
+4) Custom domain
+   - Service → Settings → Custom Domains → Add namuna.com.au (+ www if you want).
+   - Copy the DNS records Render shows.
+
+5) GoDaddy → namuna.com.au → DNS
+   - Add/replace records exactly as Render says (often CNAME for www, A records for apex).
+   - Wait until Render shows domain Verified (HTTPS automatic).
+
+6) Test
+   - https://namuna.com.au — Home, Menu tabs, Contact submit.
+
+Notes
+-----
+  - Prefer www? Change PUBLIC_SITE_URL in Render to https://www.namuna.com.au and add both hostnames in Render.
+  - Free tier sleeps after idle; first load may be slow.

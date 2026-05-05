@@ -1,0 +1,13 @@
+# Namuna Foods — GoDaddy / Apache (Linux hosting)
+DirectoryIndex index.php index.html
+Options -Indexes
+
+# Relative to this directory (works in a subfolder; no leading slash).
+ErrorDocument 404 404.php
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    # If the site lives in public_html root, RewriteBase is /
+    # If in a subfolder, set e.g. RewriteBase /mysite/
+    RewriteBase /
+</IfModule>

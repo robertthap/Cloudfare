@@ -1,0 +1,42 @@
+@page
+@model ReviewsModel
+@using Gharkowebsite.Services
+@{
+    ViewData["Title"] = "Reviews";
+}
+
+<section class="hero hero--photo" style="--hero-photo: url('@PageBackgrounds.ReviewsHeader');">
+    <div class="container">
+        <div class="hero-inner">
+            <h1 class="hero-title">Reviews &amp; Gallery</h1>
+            <p class="hero-subtitle">Kind words from our guests — plus photos from our kitchen.</p>
+        </div>
+    </div>
+</section>
+
+<section class="section section-white">
+    <div class="container gmp-reviews-page-wrap">
+        <h2 class="section-title section-title-center">What diners say</h2>
+        @await Html.PartialAsync("_WireframeTestimonials", new WireframeTestimonialsListVm
+        {
+            Items = WireframeTestimonials.ForReviews,
+            Columns = 2,
+        })
+    </div>
+</section>
+
+<section class="section section-muted">
+    <div class="container">
+        <h2 class="section-title">Photo Gallery</h2>
+        <div class="gallery">
+            <div class="gallery-item"><img src="@FoodImages.Momo" alt="Steamed momos" loading="lazy" /></div>
+            <div class="gallery-item"><img src="@FoodImages.Curry" alt="Himalayan curry" loading="lazy" /></div>
+            <div class="gallery-item"><img src="@FoodImages.Burger" alt="House burger" loading="lazy" /></div>
+            <div class="gallery-item"><img src="@FoodImages.Tandoori" alt="Tandoori chicken" loading="lazy" /></div>
+            <div class="gallery-item"><img src="@FoodImages.Chowmein" alt="Chowmein noodles" loading="lazy" /></div>
+            <div class="gallery-item"><img src="@FoodImages.Biryani" alt="Biryani rice" loading="lazy" /></div>
+            <div class="gallery-item"><img src="@FoodImages.Naan" alt="Garlic naan" loading="lazy" /></div>
+            <div class="gallery-item"><img src="@FoodImages.Samosa" alt="Crispy samosa" loading="lazy" /></div>
+        </div>
+    </div>
+</section>

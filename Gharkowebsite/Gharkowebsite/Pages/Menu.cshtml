@@ -1,0 +1,600 @@
+@page
+@model MenuModel
+@using Gharkowebsite.Services
+@{
+    ViewData["Title"] = "Menu";
+}
+
+<section class="hero hero--photo" style="--hero-photo: url('@PageBackgrounds.MenuHeader');">
+    <div class="container">
+        <div class="hero-inner">
+            <h1 class="hero-title">Our Menu</h1>
+            <p class="hero-subtitle">Explore our Modern Australian and Himalayan dishes.</p>
+        </div>
+    </div>
+</section>
+
+<section class="category-tabs">
+    <div class="container">
+        <div class="category-tabs-inner" role="tablist" aria-label="Menu categories">
+            <button type="button" class="category-tab active" data-tab="himalayan" role="tab" id="tab-himalayan" aria-controls="panel-himalayan" aria-selected="true" tabindex="0">Himalayan</button>
+            <button type="button" class="category-tab" data-tab="fusion" role="tab" id="tab-fusion" aria-controls="panel-fusion" aria-selected="false" tabindex="-1">Fusion</button>
+            <button type="button" class="category-tab" data-tab="sides" role="tab" id="tab-sides" aria-controls="panel-sides" aria-selected="false" tabindex="-1">Sides</button>
+            <button type="button" class="category-tab" data-tab="drinks" role="tab" id="tab-drinks" aria-controls="panel-drinks" aria-selected="false" tabindex="-1">Drinks</button>
+        </div>
+    </div>
+</section>
+
+<section class="section section-white">
+    <div class="container">
+
+        @* HIMALAYAN *@
+        <div class="menu-panel active" data-panel="himalayan" id="panel-himalayan" role="tabpanel" aria-labelledby="tab-himalayan" tabindex="0">
+            <div class="grid grid-4">
+                <article class="dish-card">
+                    <div class="dish-image"><img src="@FoodImages.Momo" alt="Steamed chicken momo dumplings" loading="lazy" /></div>
+                    <div class="dish-body">
+                        <h3 class="dish-name">Chicken Momo (Steam)</h3>
+                        <p class="dish-desc">Juicy chicken-filled dumplings, steamed and served with our spicy sesame sauce.</p>
+                        <div class="dish-footer">
+                            <span class="dish-price">$12.99</span>
+                            <a href="/order" class="btn btn-primary btn-sm">Add to Order</a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="dish-card">
+                    <div class="dish-image"><img src="@FoodImages.MomoSoup" alt="Chicken momo in jhol broth" loading="lazy" /></div>
+                    <div class="dish-body">
+                        <h3 class="dish-name">Chicken Momo (Jhol)</h3>
+                        <p class="dish-desc">Steamed chicken dumplings in a tangy, spicy sesame and tomato broth.</p>
+                        <div class="dish-footer">
+                            <span class="dish-price">$14.99</span>
+                            <a href="/order" class="btn btn-primary btn-sm">Add to Order</a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="dish-card">
+                    <div class="dish-image"><img src="@FoodImages.MomoFried" alt="Crispy fried chicken momo" loading="lazy" /></div>
+                    <div class="dish-body">
+                        <h3 class="dish-name">Chicken Momo (Fried)</h3>
+                        <p class="dish-desc">Crispy deep-fried chicken dumplings with a golden crunch.</p>
+                        <div class="dish-footer">
+                            <span class="dish-price">$13.99</span>
+                            <a href="/order" class="btn btn-primary btn-sm">Add to Order</a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="dish-card">
+                    <div class="dish-image"><img src="@FoodImages.Momo" alt="Vegetable momo dumplings" loading="lazy" /></div>
+                    <div class="dish-body">
+                        <h3 class="dish-name">Veg Momo</h3>
+                        <p class="dish-desc">Dumplings stuffed with seasoned mixed vegetables. Choose steam, fried or jhol.</p>
+                        <div class="dish-footer">
+                            <span class="dish-price">From $11.99</span>
+                            <a href="/order" class="btn btn-primary btn-sm">Add to Order</a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="dish-card">
+                    <div class="dish-image"><img src="@FoodImages.Chowmein" alt="Chicken chowmein noodles" loading="lazy" /></div>
+                    <div class="dish-body">
+                        <h3 class="dish-name">Chicken Chowmein</h3>
+                        <p class="dish-desc">Stir-fried noodles with tender chicken, mixed vegetables and bold Nepali spices.</p>
+                        <div class="dish-footer">
+                            <span class="dish-price">$14.99</span>
+                            <a href="/order" class="btn btn-primary btn-sm">Add to Order</a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="dish-card">
+                    <div class="dish-image"><img src="@FoodImages.Chowmein" alt="Vegetable chowmein noodles" loading="lazy" /></div>
+                    <div class="dish-body">
+                        <h3 class="dish-name">Veg Chowmein</h3>
+                        <p class="dish-desc">Stir-fried noodles loaded with fresh vegetables and aromatic Nepali spices.</p>
+                        <div class="dish-footer">
+                            <span class="dish-price">$12.99</span>
+                            <a href="/order" class="btn btn-primary btn-sm">Add to Order</a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="dish-card">
+                    <div class="dish-image"><img src="@FoodImages.Chowmein" alt="Egg chowmein noodles" loading="lazy" /></div>
+                    <div class="dish-body">
+                        <h3 class="dish-name">Egg Chowmein</h3>
+                        <p class="dish-desc">Stir-fried noodles with fresh vegetables, egg and aromatic Nepali spices.</p>
+                        <div class="dish-footer">
+                            <span class="dish-price">$13.99</span>
+                            <a href="/order" class="btn btn-primary btn-sm">Add to Order</a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="dish-card">
+                    <div class="dish-image"><img src="@FoodImages.Curry" alt="Himalayan curry with rice" loading="lazy" /></div>
+                    <div class="dish-body">
+                        <h3 class="dish-name">Himalayan Curry</h3>
+                        <p class="dish-desc">Homemade curry with basmati rice — a comforting taste of the Himalayas.</p>
+                        <div class="dish-footer">
+                            <span class="dish-price">$14.99</span>
+                            <a href="/order" class="btn btn-primary btn-sm">Add to Order</a>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+
+        @* FUSION *@
+        <div class="menu-panel" data-panel="fusion" id="panel-fusion" role="tabpanel" aria-labelledby="tab-fusion" tabindex="0">
+            <div class="grid grid-4">
+                <article class="dish-card">
+                    <div class="dish-image"><img src="@FoodImages.Burger" alt="Supreme beef burger" loading="lazy" /></div>
+                    <div class="dish-body">
+                        <h3 class="dish-name">Supreme Beef Burger</h3>
+                        <p class="dish-desc">BBQ, lettuce, tomato, beetroot, bacon, egg, beef patty, pineapple, caramelised onion and cheese.</p>
+                        <div class="dish-footer">
+                            <span class="dish-price">$14.99</span>
+                            <a href="/order" class="btn btn-primary btn-sm">Add to Order</a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="dish-card">
+                    <div class="dish-image"><img src="@FoodImages.Burger" alt="Deluxe beef burger" loading="lazy" /></div>
+                    <div class="dish-body">
+                        <h3 class="dish-name">Deluxe Beef Burger</h3>
+                        <p class="dish-desc">BBQ, lettuce, tomato, beetroot, beef patty, bacon, egg and caramelised onion.</p>
+                        <div class="dish-footer">
+                            <span class="dish-price">$12.99</span>
+                            <a href="/order" class="btn btn-primary btn-sm">Add to Order</a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="dish-card">
+                    <div class="dish-image"><img src="@FoodImages.BurgerPeri" alt="Peri peri chicken burger" loading="lazy" /></div>
+                    <div class="dish-body">
+                        <h3 class="dish-name">Peri Peri Burger</h3>
+                        <p class="dish-desc">Mayo, lettuce, tomato, chicken breast and our house peri peri sauce.</p>
+                        <div class="dish-footer">
+                            <span class="dish-price">$9.99</span>
+                            <a href="/order" class="btn btn-primary btn-sm">Add to Order</a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="dish-card">
+                    <div class="dish-image"><img src="@FoodImages.Burger" alt="Aussie beef burger" loading="lazy" /></div>
+                    <div class="dish-body">
+                        <h3 class="dish-name">Aussie Beef Burger</h3>
+                        <p class="dish-desc">BBQ, lettuce, tomato, beetroot, beef patty and caramelised onion.</p>
+                        <div class="dish-footer">
+                            <span class="dish-price">$9.99</span>
+                            <a href="/order" class="btn btn-primary btn-sm">Add to Order</a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="dish-card">
+                    <div class="dish-image"><img src="@FoodImages.PieVegetarian" alt="Margherita pizza" loading="lazy" /></div>
+                    <div class="dish-body">
+                        <h3 class="dish-name">Margherita Pizza</h3>
+                        <p class="dish-desc">Pizza sauce, mozzarella and oregano. A classic done right.</p>
+                        <div class="dish-footer">
+                            <span class="dish-price">$12.99 / $14.99</span>
+                            <a href="/order" class="btn btn-primary btn-sm">Add to Order</a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="dish-card">
+                    <div class="dish-image"><img src="@FoodImages.Pie" alt="Pepperoni pizza" loading="lazy" /></div>
+                    <div class="dish-body">
+                        <h3 class="dish-name">Pepperoni Pizza</h3>
+                        <p class="dish-desc">Pizza sauce, mozzarella and sliced mild pepperoni.</p>
+                        <div class="dish-footer">
+                            <span class="dish-price">$14.99 / $16.99</span>
+                            <a href="/order" class="btn btn-primary btn-sm">Add to Order</a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="dish-card">
+                    <div class="dish-image"><img src="@FoodImages.Pie" alt="Supreme pizza" loading="lazy" /></div>
+                    <div class="dish-body">
+                        <h3 class="dish-name">Supreme Pizza</h3>
+                        <p class="dish-desc">Leg ham, bacon, pepperoni, beef mince, Spanish onion, capsicum and mushroom.</p>
+                        <div class="dish-footer">
+                            <span class="dish-price">$16.99 / $19.99</span>
+                            <a href="/order" class="btn btn-primary btn-sm">Add to Order</a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="dish-card">
+                    <div class="dish-image"><img src="@FoodImages.Pie" alt="Meat lovers pizza" loading="lazy" /></div>
+                    <div class="dish-body">
+                        <h3 class="dish-name">Meat Lovers Pizza</h3>
+                        <p class="dish-desc">BBQ, mozzarella, leg ham, bacon, pepperoni, beef mince and cabanossi.</p>
+                        <div class="dish-footer">
+                            <span class="dish-price">$16.99 / $19.99</span>
+                            <a href="/order" class="btn btn-primary btn-sm">Add to Order</a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="dish-card">
+                    <div class="dish-image"><img src="@FoodImages.Tandoori" alt="Whole roast chicken meal" loading="lazy" /></div>
+                    <div class="dish-body">
+                        <h3 class="dish-name">Whole Chicken Meal</h3>
+                        <p class="dish-desc">Whole chicken, basmati rice, chips and salad — perfect for sharing.</p>
+                        <div class="dish-footer">
+                            <span class="dish-price">$34.99</span>
+                            <a href="/order" class="btn btn-primary btn-sm">Add to Order</a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="dish-card">
+                    <div class="dish-image"><img src="@FoodImages.RiceMeal" alt="Fish and chips" loading="lazy" /></div>
+                    <div class="dish-body">
+                        <h3 class="dish-name">Fish &amp; Chips</h3>
+                        <p class="dish-desc">Crispy battered fish served with chips or a fresh salad.</p>
+                        <div class="dish-footer">
+                            <span class="dish-price">$16.99</span>
+                            <a href="/order" class="btn btn-primary btn-sm">Add to Order</a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="dish-card">
+                    <div class="dish-image"><img src="@FoodImages.Tandoori" alt="Chicken schnitzel" loading="lazy" /></div>
+                    <div class="dish-body">
+                        <h3 class="dish-name">Chicken Schnitzel</h3>
+                        <p class="dish-desc">Golden schnitzel served with chips or a fresh salad.</p>
+                        <div class="dish-footer">
+                            <span class="dish-price">$16.99</span>
+                            <a href="/order" class="btn btn-primary btn-sm">Add to Order</a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="dish-card">
+                    <div class="dish-image"><img src="@FoodImages.RiceMeal" alt="Gym Junkies bowl" loading="lazy" /></div>
+                    <div class="dish-body">
+                        <h3 class="dish-name">Gym Junkies</h3>
+                        <p class="dish-desc">Peri peri chicken breast, basmati rice, bacon, pineapple and coconut chilli sauce.</p>
+                        <div class="dish-footer">
+                            <span class="dish-price">$17.99</span>
+                            <a href="/order" class="btn btn-primary btn-sm">Add to Order</a>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+
+        @* SIDES *@
+        <div class="menu-panel" data-panel="sides" id="panel-sides" role="tabpanel" aria-labelledby="tab-sides" tabindex="0">
+            <div class="grid grid-4">
+                <article class="dish-card">
+                    <div class="dish-image"><img src="@FoodImages.RiceMeal" alt="Hand cut chips" loading="lazy" /></div>
+                    <div class="dish-body">
+                        <h3 class="dish-name">Chips</h3>
+                        <p class="dish-desc">Crispy golden chips. Regular, large or family size.</p>
+                        <div class="dish-footer">
+                            <span class="dish-price">From $4.99</span>
+                            <a href="/order" class="btn btn-primary btn-sm">Add to Order</a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="dish-card">
+                    <div class="dish-image"><img src="@FoodImages.RiceMeal" alt="Sweet potato fries" loading="lazy" /></div>
+                    <div class="dish-body">
+                        <h3 class="dish-name">Sweet Potato Fries</h3>
+                        <p class="dish-desc">Crispy sweet potato fries. Regular, large or family size.</p>
+                        <div class="dish-footer">
+                            <span class="dish-price">From $5.99</span>
+                            <a href="/order" class="btn btn-primary btn-sm">Add to Order</a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="dish-card">
+                    <div class="dish-image"><img src="@FoodImages.Naan" alt="Garlic bread" loading="lazy" /></div>
+                    <div class="dish-body">
+                        <h3 class="dish-name">Garlic Bread</h3>
+                        <p class="dish-desc">Warm bread brushed with garlic butter and herbs.</p>
+                        <div class="dish-footer">
+                            <span class="dish-price">$6.99</span>
+                            <a href="/order" class="btn btn-primary btn-sm">Add to Order</a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="dish-card">
+                    <div class="dish-image"><img src="@FoodImages.Naan" alt="Cheesy garlic pizza crust" loading="lazy" /></div>
+                    <div class="dish-body">
+                        <h3 class="dish-name">Cheesy / Garlic Pizza Crust</h3>
+                        <p class="dish-desc">Housemade pizza dough topped with cheese and garlic butter.</p>
+                        <div class="dish-footer">
+                            <span class="dish-price">From $8.99</span>
+                            <a href="/order" class="btn btn-primary btn-sm">Add to Order</a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="dish-card">
+                    <div class="dish-image"><img src="@FoodImages.Tandoori" alt="Chicken wings" loading="lazy" /></div>
+                    <div class="dish-body">
+                        <h3 class="dish-name">Chicken Wings</h3>
+                        <p class="dish-desc">Tender wings cooked to perfection. 6 or 10 pieces.</p>
+                        <div class="dish-footer">
+                            <span class="dish-price">From $5.99</span>
+                            <a href="/order" class="btn btn-primary btn-sm">Add to Order</a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="dish-card">
+                    <div class="dish-image"><img src="@FoodImages.Paneer" alt="Mediterranean salad" loading="lazy" /></div>
+                    <div class="dish-body">
+                        <h3 class="dish-name">Mediterranean Salad</h3>
+                        <p class="dish-desc">Mixed lettuce, tomato, cucumber, fetta, olives, capsicum and balsamic.</p>
+                        <div class="dish-footer">
+                            <span class="dish-price">$14.99</span>
+                            <a href="/order" class="btn btn-primary btn-sm">Add to Order</a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="dish-card">
+                    <div class="dish-image"><img src="@FoodImages.Paneer" alt="Peri peri chicken salad" loading="lazy" /></div>
+                    <div class="dish-body">
+                        <h3 class="dish-name">Peri Peri Chicken Salad</h3>
+                        <p class="dish-desc">Crisp salad with peri peri chicken and a splash of coconut chilli sauce.</p>
+                        <div class="dish-footer">
+                            <span class="dish-price">$16.99</span>
+                            <a href="/order" class="btn btn-primary btn-sm">Add to Order</a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="dish-card">
+                    <div class="dish-image"><img src="@FoodImages.Samosa" alt="Samosa matar" loading="lazy" /></div>
+                    <div class="dish-body">
+                        <h3 class="dish-name">Samosa Matar</h3>
+                        <p class="dish-desc">Crispy samosas with spiced green peas, topped with onion and chilli.</p>
+                        <div class="dish-footer">
+                            <span class="dish-price">$10.99</span>
+                            <a href="/order" class="btn btn-primary btn-sm">Add to Order</a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="dish-card">
+                    <div class="dish-image"><img src="@FoodImages.DalRice" alt="Chana anda" loading="lazy" /></div>
+                    <div class="dish-body">
+                        <h3 class="dish-name">Chana Anda</h3>
+                        <p class="dish-desc">Spiced chickpeas served with boiled eggs.</p>
+                        <div class="dish-footer">
+                            <span class="dish-price">$8.99</span>
+                            <a href="/order" class="btn btn-primary btn-sm">Add to Order</a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="dish-card">
+                    <div class="dish-image"><img src="@FoodImages.Chowmein" alt="Wai Wai sadheko" loading="lazy" /></div>
+                    <div class="dish-body">
+                        <h3 class="dish-name">Wai Wai Sadheko</h3>
+                        <p class="dish-desc">Crunchy instant noodles tossed with veggies, spices and tangy seasonings.</p>
+                        <div class="dish-footer">
+                            <span class="dish-price">$7.99</span>
+                            <a href="/order" class="btn btn-primary btn-sm">Add to Order</a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="dish-card">
+                    <div class="dish-image"><img src="@FoodImages.RiceMeal" alt="Kids nuggets and chips" loading="lazy" /></div>
+                    <div class="dish-body">
+                        <h3 class="dish-name">Kids Nuggets &amp; Chips</h3>
+                        <p class="dish-desc">A kid-friendly favourite — nuggets served with golden chips.</p>
+                        <div class="dish-footer">
+                            <span class="dish-price">$10.99</span>
+                            <a href="/order" class="btn btn-primary btn-sm">Add to Order</a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="dish-card">
+                    <div class="dish-image"><img src="@FoodImages.Burger" alt="Junior burger and chips" loading="lazy" /></div>
+                    <div class="dish-body">
+                        <h3 class="dish-name">Junior Burger &amp; Chips</h3>
+                        <p class="dish-desc">A smaller burger with chips, perfect for the little ones.</p>
+                        <div class="dish-footer">
+                            <span class="dish-price">$10.99</span>
+                            <a href="/order" class="btn btn-primary btn-sm">Add to Order</a>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+
+        @* DRINKS *@
+        <div class="menu-panel" data-panel="drinks" id="panel-drinks" role="tabpanel" aria-labelledby="tab-drinks" tabindex="0">
+            <div class="grid grid-4">
+                <article class="dish-card">
+                    <div class="dish-image"><img src="@FoodImages.DrinkMangoSmoothie" alt="Mango smoothie" loading="lazy" /></div>
+                    <div class="dish-body">
+                        <h3 class="dish-name">Mango Smoothie</h3>
+                        <p class="dish-desc">Creamy mango smoothie blended with milk and ice.</p>
+                        <div class="dish-footer">
+                            <span class="dish-price">$6.99</span>
+                            <a href="/order" class="btn btn-primary btn-sm">Add to Order</a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="dish-card">
+                    <div class="dish-image"><img src="@FoodImages.DrinkVanillaSmoothie" alt="Vanilla smoothie" loading="lazy" /></div>
+                    <div class="dish-body">
+                        <h3 class="dish-name">Vanilla Smoothie</h3>
+                        <p class="dish-desc">Smooth and creamy vanilla smoothie.</p>
+                        <div class="dish-footer">
+                            <span class="dish-price">$6.99</span>
+                            <a href="/order" class="btn btn-primary btn-sm">Add to Order</a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="dish-card">
+                    <div class="dish-image"><img src="@FoodImages.DrinkChocolateSmoothie" alt="Chocolate smoothie" loading="lazy" /></div>
+                    <div class="dish-body">
+                        <h3 class="dish-name">Chocolate Smoothie</h3>
+                        <p class="dish-desc">Rich chocolate smoothie — a sweet way to finish your meal.</p>
+                        <div class="dish-footer">
+                            <span class="dish-price">$6.99</span>
+                            <a href="/order" class="btn btn-primary btn-sm">Add to Order</a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="dish-card">
+                    <div class="dish-image"><img src="@FoodImages.DrinkCan" alt="Soft drinks — Coca-Cola, Sprite, Fanta and similar" loading="lazy" /></div>
+                    <div class="dish-body">
+                        <h3 class="dish-name">Can of Drink</h3>
+                        <p class="dish-desc">Choice of soft drinks. Ask staff for available flavours.</p>
+                        <div class="dish-footer">
+                            <span class="dish-price">$2.99</span>
+                            <a href="/order" class="btn btn-primary btn-sm">Add to Order</a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="dish-card">
+                    <div class="dish-image"><img src="@FoodImages.DrinkWater" alt="Bottled water" loading="lazy" /></div>
+                    <div class="dish-body">
+                        <h3 class="dish-name">Bottled Water</h3>
+                        <p class="dish-desc">Refreshing bottled spring water.</p>
+                        <div class="dish-footer">
+                            <span class="dish-price">$2.99</span>
+                            <a href="/order" class="btn btn-primary btn-sm">Add to Order</a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="dish-card">
+                    <div class="dish-image"><img src="@FoodImages.DrinkThaiRedbull" alt="Krating Daeng Thai energy drink can" loading="lazy" /></div>
+                    <div class="dish-body">
+                        <h3 class="dish-name">Thai Redbull</h3>
+                        <p class="dish-desc">A bold, energising kick from the original Thai Redbull.</p>
+                        <div class="dish-footer">
+                            <span class="dish-price">$3.99</span>
+                            <a href="/order" class="btn btn-primary btn-sm">Add to Order</a>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<section class="section section-muted">
+    <div class="container">
+        <h2 class="section-title">Special Offers</h2>
+        <div class="grid grid-2">
+            <div class="offer-card">
+                <div class="offer-head">
+                    <span class="offer-icon" aria-hidden="true">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                    </span>
+                    <h3 class="offer-title">Burger Combo</h3>
+                </div>
+                <p class="offer-meta">Any burger with chips and a drink.</p>
+                <p class="offer-price">+ $6.99</p>
+            </div>
+            <div class="offer-card">
+                <div class="offer-head">
+                    <span class="offer-icon" aria-hidden="true">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5 5 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
+                    </span>
+                    <h3 class="offer-title">Family Pizza Deal</h3>
+                </div>
+                <p class="offer-meta">Two large pizzas, chips and two drinks.</p>
+                <p class="offer-price">$39.99</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="sticky-call-mobile">
+    <a href="@SiteConfig.PhoneTel" class="btn btn-primary btn-block">Call us to order</a>
+</div>
+
+@section Scripts {
+<script>
+    (function () {
+        var tabs = Array.prototype.slice.call(document.querySelectorAll('.category-tab'));
+        var panels = document.querySelectorAll('.menu-panel');
+
+        function activate(targetId, options) {
+            options = options || {};
+            var found = false;
+            tabs.forEach(function (t) {
+                var active = t.getAttribute('data-tab') === targetId;
+                if (active) found = true;
+                t.classList.toggle('active', active);
+                t.setAttribute('aria-selected', active ? 'true' : 'false');
+                t.tabIndex = active ? 0 : -1;
+            });
+            if (!found) return false;
+            panels.forEach(function (p) {
+                p.classList.toggle('active', p.getAttribute('data-panel') === targetId);
+            });
+            if (options.updateHash) {
+                history.replaceState(null, '', '#' + targetId);
+            }
+            if (options.focus) {
+                var match = tabs.filter(function (t) { return t.getAttribute('data-tab') === targetId; })[0];
+                if (match) match.focus();
+            }
+            return true;
+        }
+
+        tabs.forEach(function (tab, idx) {
+            tab.addEventListener('click', function () {
+                activate(tab.getAttribute('data-tab'), { updateHash: true });
+            });
+            tab.addEventListener('keydown', function (e) {
+                var next = null;
+                if (e.key === 'ArrowRight') next = tabs[(idx + 1) % tabs.length];
+                else if (e.key === 'ArrowLeft') next = tabs[(idx - 1 + tabs.length) % tabs.length];
+                else if (e.key === 'Home') next = tabs[0];
+                else if (e.key === 'End') next = tabs[tabs.length - 1];
+                if (next) {
+                    e.preventDefault();
+                    activate(next.getAttribute('data-tab'), { updateHash: true, focus: true });
+                }
+            });
+        });
+
+        var initial = (location.hash || '').replace('#', '');
+        if (!initial || !activate(initial)) {
+            activate(tabs[0].getAttribute('data-tab'));
+        }
+
+        window.addEventListener('hashchange', function () {
+            var id = (location.hash || '').replace('#', '');
+            if (id) activate(id);
+        });
+    })();
+</script>
+}

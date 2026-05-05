@@ -1,0 +1,9 @@
+**/bin/
+**/obj/
+**/.git/
+**/.vs/
+**/node_modules/
+**/*.user
+**/*.pubxml.user
+**/launchSettings.json
+../_build_out/

@@ -1,0 +1,17 @@
+# Blueprint from repo root (Gharkowebsite monorepo).
+# Dashboard: New → Blueprint → connect repo → Render reads this file.
+# Then set WEB3FORMS_ACCESS_KEY (secret) and optionally PUBLIC_SITE_URL = https://namuna.com.au
+
+services:
+  - type: web
+    name: namuna-foods-site
+    runtime: docker
+    dockerfilePath: ./godaddy-site/Dockerfile
+    dockerContext: ./godaddy-site
+    plan: free
+    region: oregon
+    envVars:
+      - key: PUBLIC_SITE_URL
+        value: https://namuna.com.au
+      - key: WEB3FORMS_ACCESS_KEY
+        sync: false

@@ -1,0 +1,29 @@
+@model Gharkowebsite.Services.WireframeTestimonialsListVm
+@using Gharkowebsite.Services
+@using System.Net
+@{
+    var gridClass = Model.Columns == 2 ? "grid-2" : "grid-3";
+}
+<div class="grid @gridClass mb-8">
+    @foreach (var t in Model.Items)
+    {
+        var avatarSrc = $"{WireframeTestimonials.AvatarImageBase}?seed={WebUtility.UrlEncode(t.AvatarSeed)}";
+        <article class="testimonial testimonial--with-profile">
+            <div class="testimonial-head">
+                <img class="testimonial-avatar-img"
+                     src="@avatarSrc"
+                     width="52"
+                     height="52"
+                     alt=""
+                     loading="lazy"
+                     decoding="async"
+                     referrerpolicy="no-referrer" />
+                <div class="testimonial-head-text">
+                    <div class="testimonial-author">@t.Author</div>
+                    <div class="testimonial-date">@t.Subtitle</div>
+                </div>
+            </div>
+            <p class="testimonial-text">“@t.Quote”</p>
+        </article>
+    }
+</div>

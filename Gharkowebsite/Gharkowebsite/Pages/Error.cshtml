@@ -1,0 +1,24 @@
+@page
+@model ErrorModel
+@{
+    ViewData["Title"] = "Error";
+}
+
+<section class="section section-white">
+    <div class="container" style="max-width: 640px; text-align: center; padding-top: 2rem; padding-bottom: 3rem;">
+        <h1 class="hero-title" style="font-size: 1.75rem;">Something went wrong</h1>
+        <p class="muted" style="margin-top: 1rem; line-height: 1.65;">
+            We’re sorry — an unexpected error occurred. Please try again in a moment, or reach out via our contact page if it keeps happening.
+        </p>
+        <div class="btn-group btn-group-center" style="margin-top: 2rem;">
+            <a href="/" class="btn btn-primary">Home</a>
+            <a href="/contact" class="btn btn-outline">Contact</a>
+        </div>
+        @if (Model.ShowRequestId)
+        {
+            <p class="muted" style="margin-top: 2rem; font-size: 0.8rem;">
+                Reference: <span style="word-break: break-all;">@Model.RequestId</span>
+            </p>
+        }
+    </div>
+</section>

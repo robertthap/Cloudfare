@@ -1,0 +1,57 @@
+Namuna Foods — PHP site for GoDaddy Linux/cPanel (public_html)
+
+LOGO (OPTIONAL)
+  If wwwroot/assets/logo.png exists it is copied here and shown in the nav.
+  If missing, the nav shows the site name only.
+
+WHAT TO UPLOAD
+  Upload the entire contents of this folder (godaddy-site/) into your hosting
+  document root — typically public_html — preserving css/, images/, js/, lib/,
+  assets/, includes/, robots.txt, and .htaccess.
+
+BEFORE YOU UPLOAD
+  1. Edit includes/config.php:
+     - WEB3FORMS_ACCESS_KEY — get a key from https://web3forms.com (contact form).
+     - PUBLIC_SITE_URL — full site URL with https, e.g. https://www.yourdomain.com
+       (used for the contact form thank-you redirect, canonical URLs, and Open
+       Graph previews when the server cannot infer HTTPS). No trailing slash.
+     - SITE_PREFIX — leave '' if the site is at the domain root. If the site is
+       in a subfolder, use e.g. '/namuna' (no trailing slash). Links and the
+       exported menu partial use PHP url() so images and order links respect this.
+
+AFTER MENU CHANGES IN THE .NET PROJECT
+  From the repo root, run (Windows PowerShell):
+    powershell.exe -ExecutionPolicy Bypass -File scripts/Export-GodaddySite.ps1
+  PowerShell 7 users may use: pwsh -File scripts/Export-GodaddySite.ps1
+  That copies wwwroot assets and regenerates includes/partials/menu-main.inc.php
+  from Pages/Menu.cshtml. Re-upload godaddy-site/ or the changed files.
+
+PHP VERSION
+  Use PHP 8.1+ if your host allows it (declare(strict_types=1) is used).
+
+OPTIONAL FILES
+  qr.php — compact menu + sticky bar for QR codes (link e.g. /qr.php).
+
+SECURITY
+  includes/.htaccess denies direct browser access to PHP under includes/ (config,
+  partials). Pages still load them via require.
+
+404 PAGE
+  Missing URLs show 404.php. ErrorDocument is relative to this folder so it works
+  when the site is uploaded into a subdirectory.
+
+SUBFOLDER + APACHE
+  If SITE_PREFIX is not empty, edit .htaccess and set RewriteBase to match (e.g.
+  RewriteBase /namuna/).
+
+RENDER.COM + CUSTOM DOMAIN (GoDaddy DNS)
+  Use Docker Web Service (not Static Site). See RENDER.md in this folder for
+  step-by-step: GitHub → Render Docker deploy → env vars PUBLIC_SITE_URL and
+  WEB3FORMS_ACCESS_KEY → add namuna.com.au in Render Custom Domains → copy DNS
+  records into GoDaddy.
+
+TROUBLESHOOTING
+  - 403 on includes/: normal if Apache blocks directory listing; pages use
+    includes via PHP require, not direct browser access.
+  - Contact form: if submit works but no redirect, set PUBLIC_SITE_URL to your
+    live canonical URL.

@@ -1,0 +1,9 @@
+**/bin/
+**/obj/
+**/artifacts/
+*.zip
+.vs/
+*.user
+*.suo
+**/publish/
+_build_out/

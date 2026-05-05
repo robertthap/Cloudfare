@@ -1,0 +1,24 @@
+GoDaddy + this ASP.NET Core 8 site — read this first
+===================================================
+
+1) GoDaddy "Economy" LINUX hosting (cPanel, PHP)
+   - Cannot run Gharkowebsite.dll — there is no .NET runtime there.
+   - Your options: upgrade to a plan that supports ASP.NET Core on Windows, use a VPS,
+     or host the app elsewhere (Azure, etc.) and only point your GoDaddy domain DNS here.
+
+2) GoDaddy WINDOWS hosting / VPS / Dedicated with IIS
+   - Supported path: publish this project and run it under IIS with the
+     ".NET 8 Hosting Bundle" installed on the server.
+   - Build output: run scripts\Publish-AzureZip.ps1 — upload and extract the contents of
+     artifacts\publish (or deploy artifacts\site.zip using IIS Web Deploy if available).
+
+3) Making the CONTACT FORM easier on restrictive hosts
+   - In appsettings.json (or environment variables on the server), set:
+       Hosting:ExternalContactForm:Web3FormsAccessKey = your key from https://web3forms.com
+       Hosting:PublicSiteUrl = https://YOURDOMAIN.com   (used so submitters return to /contact?sent=1)
+   - Leave Web3FormsAccessKey empty to keep using SMTP + MailKit instead.
+
+4) Environment variables (example names ASP.NET understands)
+   - Hosting__ExternalContactForm__Web3FormsAccessKey
+   - Hosting__PublicSiteUrl
+   - SmtpSettings__Host, SmtpSettings__Password, etc.

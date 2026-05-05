@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# Optional: after go-live, add a sitemap line with your canonical domain, e.g.
+# Sitemap: https://www.yourdomain.com.au/sitemap.xml

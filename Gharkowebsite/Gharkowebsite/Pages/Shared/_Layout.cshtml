@@ -1,0 +1,123 @@
+@using Gharkowebsite.Services
+@{
+    var currentPage = ViewContext.RouteData.Values["page"]?.ToString() ?? "";
+    var hideNav = currentPage == "/qr";
+
+    bool IsActive(string path) => string.Equals(currentPage, path, StringComparison.OrdinalIgnoreCase);
+    string ActiveClass(string path) => IsActive(path) ? "active" : "";
+    string CurrentAttr(string path) => IsActive(path) ? "page" : "false";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - @SiteConfig.RestaurantName</title>
+    <meta name="description" content="@SiteConfig.RestaurantName — @SiteConfig.Tagline. Modern Australian & Himalayan cuisine in Pennant Hills, NSW." />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    @if (!hideNav)
+    {
+        <nav class="top-nav" aria-label="Primary">
+            <div class="nav-container">
+                <a href="/" class="nav-logo" aria-label="@SiteConfig.RestaurantName home">
+                    <img src="~/assets/logo.png" alt="" class="nav-logo-img" />
+                    <span class="nav-logo-text">Namuna Foods</span>
+                </a>
+
+                <div class="nav-links">
+                    <a href="/" class="@ActiveClass("/Index")" aria-current="@CurrentAttr("/Index")">Home</a>
+                    <a href="/menu" class="@ActiveClass("/Menu")" aria-current="@CurrentAttr("/Menu")">Menu</a>
+                    <a href="/about" class="@ActiveClass("/About")" aria-current="@CurrentAttr("/About")">About</a>
+                    <a href="/reviews" class="@ActiveClass("/Reviews")" aria-current="@CurrentAttr("/Reviews")">Reviews</a>
+                    <a href="/order" class="@ActiveClass("/Order")" aria-current="@CurrentAttr("/Order")">Order</a>
+                    <a href="/contact" class="@ActiveClass("/Contact")" aria-current="@CurrentAttr("/Contact")">Contact</a>
+                </div>
+
+                <button type="button" class="nav-mobile-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobileNav" id="mobileNavToggle">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" /></svg>
+                </button>
+            </div>
+
+            <div class="nav-mobile" id="mobileNav">
+                <a href="/" class="@ActiveClass("/Index")" aria-current="@CurrentAttr("/Index")">Home</a>
+                <a href="/menu" class="@ActiveClass("/Menu")" aria-current="@CurrentAttr("/Menu")">Menu</a>
+                <a href="/about" class="@ActiveClass("/About")" aria-current="@CurrentAttr("/About")">About</a>
+                <a href="/reviews" class="@ActiveClass("/Reviews")" aria-current="@CurrentAttr("/Reviews")">Reviews</a>
+                <a href="/order" class="@ActiveClass("/Order")" aria-current="@CurrentAttr("/Order")">Order</a>
+                <a href="/contact" class="@ActiveClass("/Contact")" aria-current="@CurrentAttr("/Contact")">Contact</a>
+            </div>
+        </nav>
+    }
+
+    <main role="main" id="main-content">
+        @RenderBody()
+    </main>
+
+    @if (!hideNav)
+    {
+        <footer class="site-footer">
+            <div class="footer-inner">
+                <div class="footer-grid">
+                    <div>
+                        <div class="footer-brand-title">Namuna Foods</div>
+                        <p class="footer-brand-text">
+                            @SiteConfig.Tagline. Modern Australian &amp; Himalayan cuisine, crafted with passion in Pennant Hills.
+                        </p>
+                    </div>
+
+                    <div>
+                        <div class="footer-heading">Contact</div>
+                        <ul class="footer-list">
+                            <li><a href="@SiteConfig.PhoneTel">@SiteConfig.PhoneDisplay</a></li>
+                            <li><a href="@SiteConfig.MailToSupport">@SiteConfig.SupportEmail</a></li>
+                            <li>@SiteConfig.Address</li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <div class="footer-heading">Quick Links</div>
+                        <ul class="footer-list">
+                            <li><a href="/menu">Menu</a></li>
+                            <li><a href="/about">About Us</a></li>
+                            <li><a href="/reviews">Reviews</a></li>
+                            <li><a href="/order">Order Online</a></li>
+                            <li><a href="/contact">Contact</a></li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <div class="footer-heading">Hours</div>
+                        <ul class="footer-list">
+                            <li>Monday: Closed</li>
+                            <li>Tue – Sun: 11:30 AM – 8:30 PM</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="footer-bottom">
+                    &copy; @DateTime.Now.Year @SiteConfig.RestaurantName. All rights reserved.
+                </div>
+            </div>
+        </footer>
+
+        <script>
+            (function () {
+                var toggle = document.getElementById('mobileNavToggle');
+                var menu = document.getElementById('mobileNav');
+                if (!toggle || !menu) return;
+                toggle.addEventListener('click', function () {
+                    var open = menu.classList.toggle('open');
+                    toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+                });
+            })();
+        </script>
+    }
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
