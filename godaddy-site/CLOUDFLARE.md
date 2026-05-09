@@ -1,8 +1,16 @@
 # Cloudflare Pages (free) + GoDaddy domain
 
-This site is **PHP during development** and on Render. **Cloudflare Pages only serves static files**, so you deploy the output of a **one-time PHP build** that writes HTML into **`cf-pages-out/`** at the repo root.
+This site is **PHP during development** and on Render. **Cloudflare Pages only serves static files**, so you deploy the output of a **PHP build** that writes HTML into **`cf-pages-out/`** at the repo root.
 
-## 1. Build locally (requires PHP 8.1+)
+## Important: Cloudflare’s Git build cannot run PHP
+
+Cloudflare Pages **does not ship `php`** in the build container, and **you cannot `apt-get install` packages** there. If you set **Build command** to `php scripts/Build-CloudflarePages.php`, the build fails with **`php: not found`**.
+
+**Use GitHub Actions** (below) to run PHP on Ubuntu, then **`wrangler pages deploy`**. Optionally **disconnect** the Git repository from your Pages project so Cloudflare does not run a failing build on every push.
+
+---
+
+## 1. Build locally (optional, requires PHP 8.1+)
 
 From the **repository root**:
 
@@ -14,57 +22,83 @@ Optional environment variables:
 
 | Variable | Purpose |
 |----------|---------|
-| `PUBLIC_SITE_URL` | Canonical URL (default `https://namuna.com.au` if unset). Used for meta tags and Web3Forms redirect. |
-| `WEB3FORMS_ACCESS_KEY` | Inlined into the contact form so submissions work on static hosting. |
+| `PUBLIC_SITE_URL` | Canonical URL (default `https://namuna.com.au` if unset). |
+| `WEB3FORMS_ACCESS_KEY` | Inlined into the contact form. |
 
-Before building, refresh the menu partial from the .NET project when needed:
+Refresh the menu partial from the .NET project when needed:
 
 ```powershell
 powershell.exe -ExecutionPolicy Bypass -File scripts/Export-GodaddySite.ps1
 ```
 
-## 2. Create a Cloudflare Pages project (free)
+---
 
-1. Sign in to [Cloudflare Dashboard](https://dash.cloudflare.com) → **Workers & Pages** → **Create** → **Pages** → **Connect to Git** (recommended) **or** **Direct Upload**.
-2. If **Connect to Git**:
-   - Select this repo and branch **`main`**.
-   - **Framework preset:** None.
-   - **Build command:** `php scripts/Build-CloudflarePages.php`
-   - **Build output directory:** `cf-pages-out`
-   - **Root directory:** `/` (repo root).
-   - Add **environment variables** in the project settings: `PUBLIC_SITE_URL`, `WEB3FORMS_ACCESS_KEY` (secret), and ensure the Cloudflare build image has **PHP** (if not, use the GitHub Action below instead of Cloudflare’s build).
-3. If **Direct Upload**: run the build locally or in CI, then upload the **`cf-pages-out`** folder (or use Wrangler as below).
+## 2. Recommended: GitHub Actions → Cloudflare Pages (free)
+
+### A. Create the Pages project (once)
+
+In [Cloudflare Dashboard](https://dash.cloudflare.com) → **Workers & Pages** → **Create** → **Pages**:
+
+- Either create an **empty** project and note the **project name** (e.g. `cloudfare`), **or**
+- Let the first successful **`wrangler pages deploy`** create it (depends on token permissions).
+
+You do **not** need a working Git-connected build on Cloudflare for this flow.
+
+### B. Disconnect failing Git builds (if you connected GitHub earlier)
+
+**Pages** → your project → **Settings** → **Builds & deployments** (or **Connected Git**):
+
+- **Disconnect** the repository so pushes do not trigger `php: not found` builds.
+
+Deployments will come only from **GitHub Actions**.
+
+### C. GitHub secrets and variables
+
+Repo **Settings** → **Secrets and variables** → **Actions**:
+
+| Type | Name | Value |
+|------|------|--------|
+| Secret | `CLOUDFLARE_API_TOKEN` | Token with **Account** → **Cloudflare Pages** → **Edit** (and read as needed) |
+| Secret | `CLOUDFLARE_ACCOUNT_ID` | Account ID (dashboard sidebar) |
+| Secret | `WEB3FORMS_ACCESS_KEY` | Web3Forms access key |
+| Variable | `CLOUDFLARE_PAGES_PROJECT_NAME` | Exact Pages **project name** (e.g. `cloudfare`) |
+| Variable (optional) | `PUBLIC_SITE_URL` | e.g. `https://namuna.com.au` |
+
+### D. Run the workflow
+
+Push to **`main`** or **Actions** → **Cloudflare Pages** → **Run workflow**.
+
+Workflow file: [`.github/workflows/cloudflare-pages.yml`](../.github/workflows/cloudflare-pages.yml).
+
+---
 
 ## 3. Custom domain (domain stays at GoDaddy)
 
-You can keep **domain registration** at GoDaddy and only change **DNS**:
+1. **Pages** → your project → **Custom domains** → add **`namuna.com.au`** / **`www`** as needed.
+2. Add the DNS records Cloudflare shows in **GoDaddy** → **namuna.com.au** → **DNS**.
+3. Wait for verification and **HTTPS**.
 
-1. In **Pages** → your project → **Custom domains** → add **`namuna.com.au`** and optionally **`www.namuna.com.au`**.
-2. Cloudflare shows the **DNS records** you must create (often **CNAME** for `www`; apex may use specific **A** records or CNAME flattening — follow their UI exactly).
-3. In **GoDaddy** → **namuna.com.au** → **DNS** → add or update those records. Remove conflicting old **A/CNAME** rows if their instructions say so.
-4. Wait until the domain shows **Active** / **Verified** on Pages. **HTTPS** is issued automatically on the free tier.
+Match **`PUBLIC_SITE_URL`** (GitHub variable) to your canonical URL.
 
-Set **`PUBLIC_SITE_URL`** in the build environment to match your **canonical** URL (`https://namuna.com.au` or `https://www.namuna.com.au`).
+---
 
-## 4. GitHub Actions (optional, free)
+## 4. Direct Upload (no GitHub Actions)
 
-If Cloudflare’s build environment does not include PHP, use **GitHub Actions** to run the PHP build and deploy with Wrangler.
+1. On your PC: `php scripts/Build-CloudflarePages.php` (with env vars set).
+2. Cloudflare **Pages** → **Create** → upload the **`cf-pages-out`** folder, or use Wrangler:  
+   `npx wrangler pages deploy cf-pages-out --project-name=YOUR_PROJECT`
 
-1. In Cloudflare: **My Profile** → **API Tokens** → create a token with **Cloudflare Pages — Edit** (and account read as needed).
-2. Copy **Account ID** from the Cloudflare dashboard sidebar.
-3. In GitHub: **Settings** → **Secrets and variables** → **Actions**:
-   - Secrets: `CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID`, `WEB3FORMS_ACCESS_KEY`
-   - Variables: `CLOUDFLARE_PAGES_PROJECT_NAME` (must match an **existing** Pages project name), optional `PUBLIC_SITE_URL`
-
-Push to **`main`** triggers [`.github/workflows/cloudflare-pages.yml`](../.github/workflows/cloudflare-pages.yml).
+---
 
 ## 5. Behaviour notes
 
 - **Internal links** become **`.html`** during the static build (`CF_STATIC_BUILD` in [`includes/config.php`](includes/config.php)).
-- **`_redirects`** maps old **`.php`** URLs to **`.html`** (301) for bookmarks.
-- **Contact thank-you:** [`contact.php`](contact.php) shows success after redirect using **`?sent=1`** (server or client).
-- **Menu** content still comes from [`scripts/Export-GodaddySite.ps1`](../scripts/Export-GodaddySite.ps1) → [`includes/partials/menu-main.inc.php`](includes/partials/menu-main.inc.php); re-export before each build when the Razor menu changes.
+- **`_redirects`** maps **`.php`** → **`.html`** (301).
+- **Contact thank-you:** [`contact.php`](contact.php) + `?sent=1` (see source).
+- **Menu:** run [`scripts/Export-GodaddySite.ps1`](../scripts/Export-GodaddySite.ps1) before building when `Menu.cshtml` changes.
+
+---
 
 ## 6. Render vs Pages
 
-You can run **Render** and **Pages** at the same time for testing; for production pick **one** primary host and point **DNS** accordingly.
+Use **one** primary host for **namuna.com.au** DNS to avoid duplicate/confusing setups.
