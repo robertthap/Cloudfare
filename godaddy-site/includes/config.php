@@ -3,6 +3,10 @@ declare(strict_types=1);
 
 require_once __DIR__ . '/bootstrap.php';
 
+if (!defined('CF_STATIC_BUILD')) {
+    define('CF_STATIC_BUILD', false);
+}
+
 const SITE_DISPLAY_NAME = 'Namuna Foods';
 const SITE_LEGAL_NAME = 'NAMUNA FOODS';
 const SITE_TAGLINE = 'A Bold Fusion of East and West';
@@ -45,9 +49,11 @@ function public_site_url(): string
     if ($e !== false && trim($e) !== '') {
         return rtrim(trim($e), '/');
     }
-    $renderUrl = getenv('RENDER_EXTERNAL_URL');
-    if ($renderUrl !== false && trim($renderUrl) !== '') {
-        return rtrim(trim($renderUrl), '/');
+    if (!CF_STATIC_BUILD) {
+        $renderUrl = getenv('RENDER_EXTERNAL_URL');
+        if ($renderUrl !== false && trim($renderUrl) !== '') {
+            return rtrim(trim($renderUrl), '/');
+        }
     }
 
     return rtrim(PUBLIC_SITE_URL, '/');
@@ -55,10 +61,20 @@ function public_site_url(): string
 
 function url(string $path): string
 {
-    $p = '/' . ltrim($path, '/');
+    $query = '';
+    $pathOnly = $path;
+    if (str_contains($path, '?')) {
+        $parts = explode('?', $path, 2);
+        $pathOnly = $parts[0];
+        $query = '?' . $parts[1];
+    }
+    $p = '/' . ltrim($pathOnly, '/');
+    if (CF_STATIC_BUILD && preg_match('#\.php$#i', $p)) {
+        $p = preg_replace('#\.php$#i', '.html', $p);
+    }
     $pre = rtrim(SITE_PREFIX, '/');
 
-    return $pre === '' ? $p : $pre . $p;
+    return ($pre === '' ? $p : $pre . $p) . $query;
 }
 
 /** https://current-host or PUBLIC_SITE_URL when set (no trailing slash). */

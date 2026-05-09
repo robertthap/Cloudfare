@@ -48,7 +48,10 @@ ob_start();
         });
     });
     var successBanner = document.getElementById('successBanner');
-    if (successBanner) {
+    if (successBanner && new URLSearchParams(location.search).get('sent') === '1') {
+        successBanner.style.display = '';
+    }
+    if (successBanner && successBanner.offsetParent !== null) {
         successBanner.scrollIntoView({ behavior: 'smooth', block: 'center' });
         successBanner.focus({ preventScroll: true });
     }
@@ -161,18 +164,16 @@ require __DIR__ . '/includes/header.php';
         <p class="muted mb-8">Have a question or feedback? We'd love to hear from you.</p>
 
         <div class="form-card">
-            <?php if ($showSuccess): ?>
-                <div class="success-banner" role="status" aria-live="polite" tabindex="-1" id="successBanner">
-                    <strong>Thanks for getting in touch!</strong>
-                    <p style="margin-top: 0.4rem; font-weight: 500;">
-                        Your message has been sent to our team. We'll get back to you within 24 hours.
-                    </p>
-                    <div class="btn-group btn-group-center" style="margin-top: 1rem;">
-                        <a href="<?php echo e(url('menu.php')); ?>" class="btn btn-outline btn-sm">Browse Menu</a>
-                        <a href="<?php echo e(url('order.php')); ?>" class="btn btn-primary btn-sm">Order Now</a>
-                    </div>
+            <div class="success-banner" role="status" aria-live="polite" tabindex="-1" id="successBanner"<?php echo $showSuccess ? '' : ' style="display: none;"'; ?>>
+                <strong>Thanks for getting in touch!</strong>
+                <p style="margin-top: 0.4rem; font-weight: 500;">
+                    Your message has been sent to our team. We'll get back to you within 24 hours.
+                </p>
+                <div class="btn-group btn-group-center" style="margin-top: 1rem;">
+                    <a href="<?php echo e(url('menu.php')); ?>" class="btn btn-outline btn-sm">Browse Menu</a>
+                    <a href="<?php echo e(url('order.php')); ?>" class="btn btn-primary btn-sm">Order Now</a>
                 </div>
-            <?php endif; ?>
+            </div>
 
             <p class="muted" style="margin-bottom: 1rem; font-size: 0.9rem;">
                 Fields marked with <span class="required-mark" aria-hidden="true">*</span> are required.

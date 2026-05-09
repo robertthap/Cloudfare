@@ -2,6 +2,8 @@
 
 Quick checklist: see **`NEXT-STEPS.txt`** in this folder.
 
+**Cloudflare Pages (static, free):** see **[`CLOUDFLARE.md`](CLOUDFLARE.md)** — from repo root run `php scripts/Build-CloudflarePages.php`, then deploy **`cf-pages-out/`**.
+
 Render does **not** run PHP on “Static Sites”. Use a **Web Service** with this folder’s **Dockerfile** (Apache + PHP 8.2).
 
 ## Monorepo (this Gharkowebsite repo)

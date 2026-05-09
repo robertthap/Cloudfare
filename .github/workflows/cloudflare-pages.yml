@@ -1,0 +1,39 @@
+# Deploy static cf-pages-out/ to Cloudflare Pages (free tier).
+# GitHub repo: Settings → Secrets and variables → Actions
+#   Secrets: CLOUDFLARE_API_TOKEN, CLOUDFLARE_ACCOUNT_ID, WEB3FORMS_ACCESS_KEY
+#   Variables: CLOUDFLARE_PAGES_PROJECT_NAME (required, matches Pages project slug)
+#   Optional variable: PUBLIC_SITE_URL (e.g. https://namuna.com.au)
+
+name: Cloudflare Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.2"
+
+      - name: Build static site
+        env:
+          PUBLIC_SITE_URL: ${{ vars.PUBLIC_SITE_URL }}
+          WEB3FORMS_ACCESS_KEY: ${{ secrets.WEB3FORMS_ACCESS_KEY }}
+        run: php scripts/Build-CloudflarePages.php
+
+      - name: Deploy to Cloudflare Pages
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy cf-pages-out --project-name=${{ vars.CLOUDFLARE_PAGES_PROJECT_NAME }}

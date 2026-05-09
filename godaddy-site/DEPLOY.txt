@@ -50,6 +50,10 @@ RENDER.COM + CUSTOM DOMAIN (GoDaddy DNS)
   WEB3FORMS_ACCESS_KEY → add namuna.com.au in Render Custom Domains → copy DNS
   records into GoDaddy.
 
+CLOUDFLARE PAGES (FREE, STATIC)
+  See CLOUDFLARE.md — run php scripts/Build-CloudflarePages.php from repo root,
+  deploy cf-pages-out/ to Pages; domain DNS can stay at GoDaddy per Cloudflare.
+
 TROUBLESHOOTING
   - 403 on includes/: normal if Apache blocks directory listing; pages use
     includes via PHP require, not direct browser access.

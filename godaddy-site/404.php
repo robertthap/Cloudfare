@@ -1,12 +1,14 @@
 <?php
 declare(strict_types=1);
 
-http_response_code(404);
-
 $pageTitle = 'Page not found';
 $current = '';
 
 require __DIR__ . '/includes/config.php';
+
+if (!CF_STATIC_BUILD && PHP_SAPI !== 'cli') {
+    http_response_code(404);
+}
 
 $noIndex = true;
 

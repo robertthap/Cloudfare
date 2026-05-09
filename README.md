@@ -1,3 +1,3 @@
 # gharkoWebsite
 
-Namuna Foods — ASP.NET Razor app plus a PHP **`godaddy-site/`** for GoDaddy or **Render** (see `godaddy-site/RENDER.md` and root `render.yaml`).
+Namuna Foods — ASP.NET Razor app plus a PHP **`godaddy-site/`** for GoDaddy, **Render** ([`godaddy-site/RENDER.md`](godaddy-site/RENDER.md), root [`render.yaml`](render.yaml)), or **Cloudflare Pages** static build ([`godaddy-site/CLOUDFLARE.md`](godaddy-site/CLOUDFLARE.md), [`scripts/Build-CloudflarePages.php`](scripts/Build-CloudflarePages.php)).

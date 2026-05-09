@@ -2,7 +2,8 @@ FROM php:8.2-apache
 
 RUN a2enmod rewrite headers \
     && mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini" \
-    && sed -i '/<Directory \/var\/www\/>/,/<\/Directory>/ s/AllowOverride None/AllowOverride All/' /etc/apache2/apache2.conf
+    && sed -i '/<Directory \/var\/www\/>/,/<\/Directory>/ s/AllowOverride None/AllowOverride All/' /etc/apache2/apache2.conf \
+    && printf '%s\n' 'ServerName localhost' >> /etc/apache2/apache2.conf
 
 WORKDIR /var/www/html
 
